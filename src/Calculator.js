@@ -21,12 +21,12 @@ class Calculator extends Component {
     handleInputNum = (event) => {
         event.persist ()
 
-        // handle double decminal first
+        // handle double decimal first
 		if (event.target.innerText === '.' && this.state.current.includes('.')) {
-			// have to return to break out of `handleNumberPress`
-			return this.setState({ error: 'Double decimal pressed. Select another' })
+			// have to return to break out of `handleInputNum`
+			return this.setState({ error: 'ERROR: Double decimal not allowed. Select another' })
 		}
-
+        //reset error if double decimal not pressed
 		this.setState(prevState => {
 			return {
 				current: prevState.current + event.target.innerText,
@@ -146,7 +146,7 @@ render(){
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{this.state.error ? this.state.error : this.state.current}</div>
                 <div className="calc-row">
                     <button onClick={this.handleAC} className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -164,7 +164,7 @@ render(){
                     <button onClick={this.handleInputNum} className="calc-button">5</button>
                     <button onClick={this.handleInputNum} className="calc-button">6</button>
                     <button onClick={this.handleOperator} className="calc-button calc-button-op">-</button>
-                </div>
+                </div> 
                 <div className="calc-row">
                     <button onClick={this.handleInputNum} className="calc-button">1</button>
                     <button onClick={this.handleInputNum} className="calc-button">2</button>
@@ -173,7 +173,7 @@ render(){
                 </div>
                 <div className="calc-row">
                     <button onClick={this.handleInputNum} className="calc-button width-2">0</button>
-                    <button className="calc-button">.</button>
+                    <button onClick={this.handleInputNum} className="calc-button">.</button>
                     <button onClick={this.calculate} className="calc-button calc-button-op">=</button>
                 </div>
             </div>
